@@ -1,0 +1,22 @@
+CC=gcc
+CFLAGS=-Wall -ansi -pedantic-errors -g
+
+all: my_prog
+
+lib1.o: lib1.c lib1.h
+	$(CC) $(CFLAGS) -c -o lib1.o lib1.c
+
+lib2.o: lib2.c lib2.h
+	$(CC) $(CFLAGS) -c -o lib2.o lib2.c
+
+my_prog.o: my_prog.c lib1.h lib2.h
+	$(CC) $(CFLAGS) -c -o my_prog.o my_prog.c
+
+my_prog: my_prog.o lib1.o lib2.o
+	$(CC) $(CFLAGS) -o my_prog my_prog.o lib1.o lib2.o
+
+clean:
+	rm -f my_prog my_prog.o lib1.o lib2.o
+
+run: my_prog
+	./my_prog
